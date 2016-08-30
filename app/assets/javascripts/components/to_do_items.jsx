@@ -39,6 +39,7 @@ var ToDoBox = React.createClass({
             {toDoItems}
           </tbody>
         </table>
+        <ToDoItemForm />
       </div>
     );
   }
@@ -55,6 +56,14 @@ var ToDoItem = React.createClass({
   }
 });
 
-// var ToDoItemForm = React.createClass({
-  
-// })
+var ToDoItemForm = React.createClass({
+  render: function() {
+    return (
+      <form className="toDoForm">
+        <input type="text" placeholder="Title" />
+        <input type="text" placeholder="Description" />
+        <input type="submit" placeholder="Post" />
+      </form>
+    )
+  }
+})
