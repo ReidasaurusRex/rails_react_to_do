@@ -3,6 +3,12 @@ class ToDoItemsController < ApplicationController
     @to_do_items = ToDoItem.all
   end
 
+  def items
+    respond_to do |format|
+      format.json {render json: ToDoItem.all}
+    end
+  end
+
   def create
   end
 

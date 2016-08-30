@@ -2,6 +2,23 @@ var ToDoBox = React.createClass({
   getInitialState: function() {
     return  {data: []};
   },
+  loadItemsFromServer: function() {
+    $.ajax({
+      url: this.props.url,
+      dataType: 'json',
+      cache: false,
+      success: function(data) {
+        this.setState({data: data});
+      }.bind(this),
+      error: function(xhr, status, err) {
+        console.log(this.props.url, stats, err.toString());
+      }.bind(this)
+    });
+  },
+  componentDidMount: function() {
+    this.loadItemsFromServer();
+    setInterval(this.loadItemsFromServer, this.props.pollInterval);
+  },
   render: function() {
     var toDoItems = this.state.data.map(function(item) {
       return (
@@ -38,6 +55,6 @@ var ToDoItem = React.createClass({
   }
 });
 
-var ToDoItemForm = React.createClass({
+// var ToDoItemForm = React.createClass({
   
-})
+// })

@@ -1,3 +1,10 @@
-// Place all the styles related to the ToDoItems controller here.
-// They will automatically be included in application.css.
-// You can use Sass (SCSS) here: http://sass-lang.com/
+td {  
+  padding: 10px;
+  &:first-child {
+    padding-right: 25px;
+  }
+}
+
+thead td {
+  font-weight: bold;
+}
