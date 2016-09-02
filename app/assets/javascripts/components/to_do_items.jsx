@@ -87,7 +87,7 @@ var ToDoItemForm = React.createClass({
     if (!title || !description) {
       return;
     }
-    this.props.onItemSubmit({title: title, description: description})
+    this.props.onItemSubmit({to_do_item: {title: title, description: description}})
     this.setState({title: '', description: ''})
   },
   render: function() {

@@ -18,6 +18,6 @@ class ToDoItemsController < ApplicationController
 
   private
   def item_params
-    params.permit(:title, :description)
+    params.require(:to_do_item).permit(:title, :description)
   end
 end
