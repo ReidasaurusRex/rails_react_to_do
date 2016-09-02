@@ -15,6 +15,9 @@ var ToDoBox = React.createClass({
       }.bind(this)
     });
   },
+  handleItemSubmit: function(item) {
+
+  },
   componentDidMount: function() {
     this.loadItemsFromServer();
     setInterval(this.loadItemsFromServer, this.props.pollInterval);
@@ -39,7 +42,7 @@ var ToDoBox = React.createClass({
             {toDoItems}
           </tbody>
         </table>
-        <ToDoItemForm />
+        <ToDoItemForm onItemSubmit={this.handleItemSubmit} />
       </div>
     );
   }
@@ -73,7 +76,8 @@ var ToDoItemForm = React.createClass({
     if (!title || !description) {
       return;
     }
-    // TODO: send request to server
+    this.props.onItemSubmit({title: title, description: description})
+    this.setState({title: '', description: ''})
   },
   render: function() {
     return (
