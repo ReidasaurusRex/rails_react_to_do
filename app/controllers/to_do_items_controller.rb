@@ -5,14 +5,19 @@ class ToDoItemsController < ApplicationController
       format.json {render json: ToDoItem.all}
     end
   end
-  
-  def create
-    binding.pry
-  end
 
-  def update
+  def create
+    ToDoItem.create(item_params)
+    respond_to do |format| 
+      format.json {render json: ToDoItem.all}
+    end
   end
 
   def destroy
+  end
+
+  private
+  def item_params
+    params.permit(:title, :description)
   end
 end
