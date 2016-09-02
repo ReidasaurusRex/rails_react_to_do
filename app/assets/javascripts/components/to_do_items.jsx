@@ -11,12 +11,23 @@ var ToDoBox = React.createClass({
         this.setState({data: data});
       }.bind(this),
       error: function(xhr, status, err) {
-        console.log(this.props.url, stats, err.toString());
+        console.log(this.props.url, status, err.toString());
       }.bind(this)
     });
   },
   handleItemSubmit: function(item) {
-
+    $.ajax({
+      url: this.props.url,
+      dataType: 'json',
+      type: 'POST',
+      data: item,
+      success: function(data) {
+        this.setState({data: data});
+      }.bind(this), 
+      error: function(xhr, status, err) {
+        console.log(this.props.url, status, err.toString());
+      }.bind(this)
+    });
   },
   componentDidMount: function() {
     this.loadItemsFromServer();
@@ -67,7 +78,7 @@ var ToDoItemForm = React.createClass({
     this.setState({title: e.target.value});
   },
   handleDescriptionChange: function(e) {
-    this.setState({title: e.target.value});
+    this.setState({description: e.target.value});
   },
   handleSubmit: function(e) {
     e.preventDefault();
