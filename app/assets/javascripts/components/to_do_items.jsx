@@ -36,7 +36,7 @@ var ToDoBox = React.createClass({
   render: function() {
     var toDoItems = this.state.data.map(function(item) {
       return (
-        <ToDoItem title={item.title} description={item.description} key={item.id} /> 
+        <ToDoItem title={item.title} description={item.description} key={item.id} id={item.id}/> 
       );
     });
     return (
@@ -60,11 +60,27 @@ var ToDoBox = React.createClass({
 });
 
 var ToDoItem = React.createClass({
+  handleItemDestroy: function(id) {
+    console.log(id);
+    $.ajax({
+      url: "/to_do_items/" + id.id,
+      dataType: 'json',
+      type: 'DELETE',
+      data: id,
+      success: function(data) {
+        this.setState({data: data})
+      }.bind(ToDoBox),
+      error: function(xhr, status, err) {
+        console.log(this.props.url, status, err.toString());
+      }.bind(ToDoBox)
+    });
+  },
   render: function() {
     return (
       <tr className="toDoItem">
         <td> {this.props.title} </td>
         <td> {this.props.description} </td>
+        <td><DestroyItemButton id={this.props.id} onItemDestroy={this.handleItemDestroy} /></td>
       </tr>
     )
   }
@@ -105,8 +121,22 @@ var ToDoItemForm = React.createClass({
           value={this.state.description}
           onChange={this.handleDescriptionChange}
         />
-        <input type="submit" placeholder="Post" />
+        <input type="submit" value="Post"/>
       </form>
     )
   }
-})
+});
+
+var DestroyItemButton = React.createClass({
+  handleDestroy: function(e) {
+    e.preventDefault();
+    this.props.onItemDestroy({id: this.props.id})
+  },
+  render: function() {
+    return (
+      <form className="destroyItemButton" onSubmit={this.handleDestroy}>
+        <input type="submit" value={this.props.id}/>
+      </form>
+    )
+  }
+});

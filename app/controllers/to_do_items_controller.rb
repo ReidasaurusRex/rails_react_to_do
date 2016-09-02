@@ -14,6 +14,10 @@ class ToDoItemsController < ApplicationController
   end
 
   def destroy
+    ToDoItem.find(params[:id]).destroy
+    respond_to do |format| 
+      format.json{render json: ToDoItem.all}
+    end
   end
 
   private
