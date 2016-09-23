@@ -111,7 +111,7 @@ var ToDoItemForm = React.createClass({
     return (
       <form className="toDoForm" onSubmit={this.handleSubmit}>
         <input
-          type="text" 
+          type="text"   
           placeholder="Title"
           value={this.state.title}
           onChange={this.handleTitleChange}
@@ -136,7 +136,7 @@ var DestroyItemButton = React.createClass({
   render: function() {
     return (
       <form className="destroyItemButton" onSubmit={this.handleDestroy}>
-        <input type="submit" value={this.props.id}/>
+        <input type="submit" value="X"/>
       </form>
     )
   }
